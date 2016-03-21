@@ -51,6 +51,11 @@ ds_array_fetch(struct ds_array* array, int idx) {
 	}
 }
 
+const void* 
+ds_array_data(struct ds_array* array) {
+	return array->data;
+}
+
 void 
 ds_array_add(struct ds_array* array, void* data) {
 	if (array->size == array->capacity) {

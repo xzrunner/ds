@@ -16,6 +16,8 @@ void ds_array_release(struct ds_array*);
 int ds_array_size(struct ds_array*);
 void* ds_array_fetch(struct ds_array*, int idx);
 
+const void* ds_array_data(struct ds_array*);
+
 void ds_array_add(struct ds_array*, void* data);
 void ds_array_clear(struct ds_array*);
 
