@@ -38,7 +38,7 @@ ds_array_release(struct ds_array* array) {
 }
 
 int 
-ds_array_size(struct ds_array* array) {
+ds_array_size(const struct ds_array* array) {
 	return array->size;
 }
 
@@ -52,7 +52,7 @@ ds_array_fetch(struct ds_array* array, int idx) {
 }
 
 const void* 
-ds_array_data(struct ds_array* array) {
+ds_array_data(const struct ds_array* array) {
 	return array->data;
 }
 
