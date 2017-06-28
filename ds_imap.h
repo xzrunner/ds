@@ -2,6 +2,7 @@
 #define LR_IMAP_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct {
     int next;
