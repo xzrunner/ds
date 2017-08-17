@@ -80,6 +80,10 @@ imap_set(imap_t *imap, int key, int value) {
     int mp = key % imap->size;
     imap_node_t *node = &imap->hash[mp];
     if(node->inuse == IN_USE) {
+        if(node->key == key) {
+            node->value = value;
+            return;
+        }
         imap_node_t *free = get_free_node(imap);
         if(!free) {
             rehash(imap, key, value);
