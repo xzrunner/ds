@@ -204,13 +204,20 @@ _new_hash_node(struct ds_hash* hash) {
 	}
 }
 
+#ifdef _MSC_VER
+#	include <malloc.h>
+#	define ARRAY(type, name, size) type* name = (type*)_alloca((size) * sizeof(type))
+#else
+#	define ARRAY(type, name, size) type name[size]
+#endif
+
 static inline void
 _enlarge_hashlist(struct ds_hash* hash) {
 	struct changeable* old = hash->c;
 
 	int old_buf_sz = old->buf_sz;
-	void* keys[old_buf_sz];
-	void* vals[old_buf_sz];
+	ARRAY(void*, keys, old_buf_sz);
+	ARRAY(void*, vals, old_buf_sz);
 	for (int i = 0; i < old_buf_sz; ++i) {
 		struct hash_node* node = &old->buf[i];
 		if (node) {
