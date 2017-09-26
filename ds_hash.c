@@ -42,7 +42,7 @@ static inline size_t
 _find_next_hash_sz(int n) {
 	int size = sizeof(HASH_SZ_TBL) / sizeof(HASH_SZ_TBL[0]);
 	for (int i = 0; i < size; ++i) {
-		if (HASH_SZ_TBL[i] > n) {
+		if (HASH_SZ_TBL[i] > (size_t)n) {
 			return HASH_SZ_TBL[i];
 		}
 	}
@@ -60,7 +60,7 @@ _init_changeable(struct changeable* c, size_t buf_sz, size_t hash_sz) {
 	c->buf_sz = buf_sz;
 	c->freelist = c->buf;
 	c->node_used = 0;
- 	for (int i = 0; i < buf_sz - 1; ++i) {
+ 	for (size_t i = 0; i < buf_sz - 1; ++i) {
  		struct hash_node* hn = &c->buf[i];
  		hn->next = &c->buf[i + 1];
  	}
@@ -156,14 +156,14 @@ _enlarge_freelist(struct ds_hash* hash) {
 	new->buf_sz = new_buf_sz;
 
 	new->freelist = &new->buf[old->buf_sz];
-	for (int i = old->buf_sz; i < new_buf_sz - 1; ++i) {
+	for (size_t i = old->buf_sz; i < new_buf_sz - 1; ++i) {
 		new->buf[i].next = &new->buf[i + 1];
 	}
 	new->buf[new_buf_sz - 1].next = NULL;
 
 	new->node_used = old->node_used;
 	memcpy(new->buf, old->buf, sizeof(struct hash_node) * old->buf_sz);
-	for (int i = 0; i < old->buf_sz; ++i) {
+	for (size_t i = 0; i < old->buf_sz; ++i) {
 	 	struct hash_node* node_old = &old->buf[i];
 	 	struct hash_node* node_new = &new->buf[i];
 		if (old) {
@@ -178,7 +178,7 @@ _enlarge_freelist(struct ds_hash* hash) {
 
 	new->hash_sz = old->hash_sz;
 	new->hashlist = (struct hash_node**)((intptr_t)(new + 1) + free_list_sz);
-	for (int i = 0; i < new->hash_sz; ++i) {
+	for (size_t i = 0; i < new->hash_sz; ++i) {
 		if (old->hashlist[i]) {
 			int ptr_idx = old->hashlist[i] - old->buf;
 			new->hashlist[i] = new->buf + ptr_idx;
