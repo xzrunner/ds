@@ -11,7 +11,7 @@ struct ds_stack {
 	int capacity;
 };
 
-struct ds_stack* 
+struct ds_stack*
 ds_stack_create(int cap, size_t data_sz) {
 	if (cap <= 0) {
 		return NULL;
@@ -31,18 +31,18 @@ ds_stack_create(int cap, size_t data_sz) {
 	return array;
 }
 
-void 
+void
 ds_stack_release(struct ds_stack* stack) {
 	free(stack->data);
 	free(stack);
 }
 
-bool 
+bool
 ds_stack_empty(struct ds_stack* stack) {
 	return stack->size == 0;
 }
 
-void 
+void
 ds_stack_push(struct ds_stack* stack, void* data) {
 	if (stack->size == stack->capacity) {
 		int cap = stack->capacity * 2;
@@ -58,7 +58,7 @@ ds_stack_push(struct ds_stack* stack, void* data) {
 	++stack->size;
 }
 
-void* 
+void*
 ds_stack_top(struct ds_stack* stack) {
 	if (!ds_stack_empty(stack)) {
 		return (char*)stack->data + stack->data_sz * (stack->size - 1);

@@ -12,7 +12,7 @@ struct ds_hash;
 struct ds_array;
 
 struct ds_hash* ds_hash_create(int capacity, int hash_size, float rehash_weight,
-	                               unsigned int (*hash_func)(int hash_sz, void* key), 
+	                               unsigned int (*hash_func)(int hash_sz, void* key),
 								   bool (*equal_func)(void* key0, void* key1));
 void ds_hash_release(struct ds_hash*);
 

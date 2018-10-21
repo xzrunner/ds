@@ -65,12 +65,12 @@ _init_changeable(struct changeable* c, size_t buf_sz, size_t hash_sz) {
  		hn->next = &c->buf[i + 1];
  	}
  	c->buf[buf_sz - 1].next = NULL;
- 
+
  	c->hash_sz = hash_sz;
  	c->hashlist = (struct hash_node**)((intptr_t)c + sizeof(struct changeable) + free_list_sz);
 }
 
-struct ds_hash* 
+struct ds_hash*
 ds_hash_create(int capacity, int hash_size, float rehash_weight,
 				 unsigned int (*hash_func)(int hash_sz, void* key),
 				 bool (*equal_func)(void* key0, void* key1)) {
@@ -106,13 +106,13 @@ ds_hash_create(int capacity, int hash_size, float rehash_weight,
 	return hash;
 }
 
-void 
+void
 ds_hash_release(struct ds_hash* hash) {
 	free(hash->c);
 	free(hash);
 }
 
-void* 
+void*
 ds_hash_query(struct ds_hash* hash, void* key) {
 	unsigned int idx = hash->hash_func(hash->c->hash_sz, key);
 	struct hash_node* hn = hash->c->hashlist[idx];
@@ -125,7 +125,7 @@ ds_hash_query(struct ds_hash* hash, void* key) {
 	return NULL;
 }
 
-void 
+void
 ds_hash_query_all(struct ds_hash* hash, void* key, struct ds_array* ret) {
 	unsigned int idx = hash->hash_func(hash->c->hash_sz, key);
 	struct hash_node* hn = hash->c->hashlist[idx];
@@ -236,7 +236,7 @@ _enlarge_hashlist(struct ds_hash* hash) {
 	if (!new) {
 		return;
 	}
-	
+
 	memset(new + 1, 0, free_list_sz + hash_list_sz);
 
 	new->buf = (struct hash_node*)(new + 1);
@@ -257,7 +257,7 @@ _enlarge_hashlist(struct ds_hash* hash) {
 	}
 }
 
-void 
+void
 ds_hash_insert(struct ds_hash* hash, void* key, void* val, bool force) {
 	if (hash->rehash_weight != 0) {
 		float weight = (float)hash->c->node_used / hash->c->hash_sz;
@@ -285,7 +285,7 @@ ds_hash_insert(struct ds_hash* hash, void* key, void* val, bool force) {
 	hash->c->hashlist[idx] = hn;
 }
 
-void* 
+void*
 ds_hash_remove(struct ds_hash* hash, void* key) {
 	unsigned int idx = hash->hash_func(hash->c->hash_sz, key);
 	struct hash_node* prev = NULL;
@@ -318,12 +318,12 @@ ds_hash_remove(struct ds_hash* hash, void* key) {
 	return val;
 }
 
-void 
+void
 ds_hash_clear(struct ds_hash* hash) {
 	_init_changeable(hash->c, hash->c->buf_sz, hash->c->hash_sz);
 }
 
-unsigned int 
+unsigned int
 ds_string_hash_func(int hash_sz, void* key) {
 	const char* str = (const char*)key;
 
@@ -338,7 +338,7 @@ ds_string_hash_func(int hash_sz, void* key) {
 	return (hash & 0x7FFFFFFF) % hash_sz;
 }
 
-bool 
+bool
 ds_string_equal_func(void* key0, void* key1) {
 	const char* str0 = (const char*)key0;
 	const char* str1 = (const char*)key1;

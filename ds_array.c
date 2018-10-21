@@ -11,7 +11,7 @@ struct ds_array {
 	int capacity;
 };
 
-struct ds_array* 
+struct ds_array*
 ds_array_create(int cap, size_t data_sz) {
 	if (cap <= 0) {
 		return NULL;
@@ -31,18 +31,18 @@ ds_array_create(int cap, size_t data_sz) {
 	return array;
 }
 
-void 
+void
 ds_array_release(struct ds_array* array) {
 	free(array->data);
 	free(array);
 }
 
-int 
+int
 ds_array_size(const struct ds_array* array) {
 	return array->size;
 }
 
-void* 
+void*
 ds_array_fetch(struct ds_array* array, int idx) {
 	if (idx < 0 || idx >= array->size) {
 		return NULL;
@@ -51,12 +51,12 @@ ds_array_fetch(struct ds_array* array, int idx) {
 	}
 }
 
-const void* 
+const void*
 ds_array_data(const struct ds_array* array) {
 	return array->data;
 }
 
-void 
+void
 ds_array_add(struct ds_array* array, void* data) {
 	if (array->size == array->capacity) {
 		int cap = array->capacity * 2;
@@ -72,7 +72,7 @@ ds_array_add(struct ds_array* array, void* data) {
 	++array->size;
 }
 
-void 
+void
 ds_array_clear(struct ds_array* array) {
 	array->size = 0;
 }

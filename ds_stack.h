@@ -8,7 +8,7 @@ extern "C"
 
 #include <stdbool.h>
 #include <stddef.h>
-	
+
 struct ds_stack;
 
 struct ds_stack* ds_stack_create(int cap, size_t data_sz);
