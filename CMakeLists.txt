@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.16)
 
-project(fs)
+project(ds)
 
 ################################################################################
 # Source groups
@@ -28,4 +28,4 @@ set(ALL_FILES
     ${src}
 )
 
-add_library(fs ${ALL_FILES})
+add_library(ds ${ALL_FILES})
