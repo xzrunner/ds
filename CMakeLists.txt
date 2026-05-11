@@ -29,3 +29,5 @@ set(ALL_FILES
 )
 
 add_library(ds ${ALL_FILES})
+
+target_include_directories(ds PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
